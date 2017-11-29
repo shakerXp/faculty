@@ -11,6 +11,7 @@ INCLUDE io.h
 	nickel DWORD ?
 	pinny DWORD ?
 	cent DWORD ?
+	number1 DWORD 100
 
 	prompt1 BYTE "Enter Dollars",0
 	prompt2 BYTE "Enter 50Cents",0
@@ -19,10 +20,15 @@ INCLUDE io.h
 	prompt5 BYTE "Enter Nickels",0
 	prompt6 BYTE "Enter Pennies",0
 
+
 	string  BYTE 20 DUP(?)
 	result1  BYTE 20 DUP(?)
 	result2  BYTE 20 DUP(?)
+	result3  BYTE 20 DUP(?)
+	result4  BYTE 20 DUP(?)
 	resultlbl BYTE "you have   cent in total",0
+	result BYTE "you have   dollars in total",0
+	resultl BYTE "you have   cent ",0
 	resultlb BYTE "you have   coin in total",0
 .CODE
 	_MainProc PROC
@@ -66,9 +72,21 @@ INCLUDE io.h
 		atod string
 		ADD dollar,eax
 		ADD cent,eax
-	
+
+		
+	MOV eax,cent
+	MOV edx,0
+	DIV number1
+
 	dtoa result1,cent
 		output resultlbl,result1
+		
+		dtoa result3,eax
+		output result,result3
+
+		dtoa result4,edx
+		output resultl,result4
+
 
 	dtoa result2,dollar
 		output resultlb,result2
